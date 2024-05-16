@@ -25,7 +25,7 @@ class WpAffiliateDisclaimer {
 
 		add_filter( "plugin_action_links_$this->plugin_name", array( $this, 'settings_link' ) );
 
-        add_filter( 'the_content', 'append_disclaimer', 1);
+        add_filter( 'the_content', array( $this, 'append_disclaimer' ), 1);
 	}
 
     /* Add Settings link in plugin list */
@@ -48,7 +48,7 @@ class WpAffiliateDisclaimer {
 
     /* Add disclaimer to end of post */
     public function append_disclaimer($post_content) {
-        var $disclaimer = '<p><small>As an affiliate, we may earn a commission from qualifying purchases made using our links.</small></p>';
+        $disclaimer = '<p><small>As an affiliate, we may earn a commission from qualifying purchases made using our links.</small></p>';
         if (is_single() && is_main_query()) {
             return $post_content . $disclaimer;
         }
@@ -58,3 +58,5 @@ class WpAffiliateDisclaimer {
 
 $wpad = new WpAffiliateDisclaimer();
 $wpad->init();
+
+?>
